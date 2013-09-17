@@ -20,8 +20,7 @@ class Main extends CI_Controller
 
 	{
         $this->grubber->init('wallbase');
-        $this->grubber->run();
-        $data = array('message' => 'Hello World!');
+        $data = array('images_data' => $this->grubber->run(0));
         //Call view with $data
         $this->_base_template('watcher', $data );
 	}
