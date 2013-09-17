@@ -1,48 +1,75 @@
-<?php
-include_once('wallbase.php');
+<?php defined('BASEPATH') OR exit('No direct script access allowed');
 include_once('simple_html_dom.php');
+include_once('Connection.php');
+include_once('Curl.php');
 class Grubber {
     public $linksRegex = '';
     public $imageRegex = '';
     public $filenameString = '';
     public $name = 'defaultscraper';
-    private $source = null;
+    private $config = array();
     private $source_name = '';
-    private $config_file = '';
+    private $_curl = null;
 
     public function init($source_name)
     {
+        $this->_curl = new Curl();
         $this->source_name = $source_name;
         $CI =& get_instance();
         $CI->config->load('grubber');
-        $this->source = new Source($CI->config->item($this->source_name));
+        $this->config =$CI->config->item($this->source_name);
     }
 
-    public function parse($html){
-        $thumb_div = $html->find('.thumbnail');
-        foreach($thumb_div as $one_die){
-            var_dump($thumb_div->find(''));
+    public function parse($html)
+    {
+        $data_tags = 'data-tags';
+        $data_img = 'data-original';
+        foreach($html->find('div.thumbnail') as $one){
+            $thumb = $one->find('img' , 0);
+            $image_data[] = array(
+                                  'thumb_url' => $thumb->$data_img,
+                                  'src_url'   => str_replace('thumb', 'wallpaper', $thumb->$data_img),
+                                  'tags'  => $this->_parseTags($one->$data_tags)
+                                 );
         }
+        $html->clear;
+        unset($html);
+        return $image_data;
+    }
 
-        $xpath = new DOMXPath($html);
-        $links = $xpath->query($this->source->linksRegex);
-        $urls = array();
-        echo "\r\n --- Searching for urls --- \r\n";
-        foreach($links as $link){
-            array_push($urls, $link->getAttribute('href'));
+    public function saveToDb()
+    {
+
+    }
+
+    private function _parseTags ($tags = '')
+    {
+        if(!is_string($tags)){
+            throw new Exception('Incoming data is not a string!');
         }
-        echo "\r\n --- Going through the urls finding images --- \r\n";
-        foreach($urls as $url){
-            $html = $this->scraper->getHTMLFromUrl($url);
-            $xpath = new DOMXPath($html);
-            $result = $xpath->query($this->source->imageRegex);
-            foreach($result as $img){
-                var_dump(array('url' => $url, 'src' => $img->getAttribute('src')));
+        $parsed_tags = explode('|0', $tags);
+            for($i = 0; $i < count($parsed_tags); $i++){
+                if($parsed_tags[$i] != '' && $parsed_tags[$i] != null){
+                    $pars_item = explode('|', trim($parsed_tags[$i], '||'));
+                    if(strlen($pars_item[0]) != 0){
+                        $tag_data[] = array($pars_item[0], $pars_item[1] );
+                    }
+                }
             }
-        }
+        return $tag_data;
     }
 
-    public function download($image){
+    public function getImage($img_url)
+    {
+        $this->_curl->create($img_url);
+        $this->_curl->option(CURLOPT_REFERER, 'http://wallbase.cc/');
+        $this->_curl->option(CURLOPT_FOLLOWLOCATION, 1);
+        $this->_curl->option(CURLOPT_RETURNTRANSFER, 1);
+        return $this->_curl->execute();
+    }
+
+    public function download($image)
+    {
         $exploded = explode($this->filenameString, $image['url']);
         $file = file_get_contents($image['src']);
         $filename = $exploded[1] . '.jpg';
@@ -50,13 +77,19 @@ class Grubber {
         echo 'Downloaded: ' . $image['url'] . "\r\n";
     }
 
-    public function getHTMLFromUrl($url){
+    public function getHTMLFromUrl($url)
+    {
         $html = file_get_html($url);
         return $html;
     }
 
-    public function run()
+    public function run($pagination)
     {
-        $this->parse($this->getHTMLFromUrl($this->source->url));
+        if($pagination == 0){
+            $data = $this->parse($this->getHTMLFromUrl($this->config['url']));
+        }else{
+            $data = $this->parse($this->getHTMLFromUrl($this->config['url'] . $pagination));
+        }
+        return $data;
     }
 }

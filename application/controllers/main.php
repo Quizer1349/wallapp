@@ -5,32 +5,71 @@ class Main extends CI_Controller
 	function __construct()
 	{
 		parent::__construct();
-//		$this->load->model('twitter_users');
-//		$this->load->model('tweets');
+
+        //Loading models
+		$this->load->model('images');
+		$this->load->model('images_tags');
+		$this->load->model('tags');
+
+        //Loading helpers
 		$this->load->helper('url');
-//		// Loading TwitterOauth library. Delete this line if you choose autoload method.
+
+    	//Parser
         $this->load->library('grubber');
-//		/**
-//		* Get ouath config from config/twitterapp.php
-//		*/
-//		$this->config->load('twitterapp');
+
 	}
 
 	function index()
-
-	{
+    {
+        //Check is there correct params in URI
+        if($this->uri->total_segments() > 2 || $this->uri->total_segments() < 2){
+            $page= 0;
+        }else{
+            $page = ($this->uri->segment(2)) ? $this->uri->segment(2) : 0;
+        }
+        //Init grubber with WallBase config
         $this->grubber->init('wallbase');
-        $this->grubber->run();
-        $data = array('message' => 'Hello World!');
+        //Grub images with data
+        $data = array('images_data' => $this->grubber->run($page));
         //Call view with $data
         $this->_base_template('watcher', $data );
 	}
 	
-	function saver()
+	function parser()
 	{
-		$data['count_rows'] = $this->tweets->count_rows();
-		$data['tweets'] = $this->twitter_users->get();
-		$this->_base_template('saver', $data );
+        if($this->uri->total_segments() > 3 || $this->uri->total_segments() < 3){
+            $page= 0;
+        }else{
+            $page = ($this->uri->segment(3)) ? $this->uri->segment(3) : 0;
+        }
+        $this->grubber->init('wallbase');
+        $data = array('images_data' => $this->grubber->run($page));
+        try{
+            foreach($data['images_data'] as $image){
+                $this->db->trans_begin();
+                $image_id = $this->images->insert(array(
+                                                            'src_url'   => $image['src_url'],
+                                                            'thumb_url' => $image['thumb_url'],
+                                                       ));
+                foreach($image['tags'] as $value){
+                    //var_dump($value[0]);
+                    $tag_id = $this->tags->insertIfNotExists($value[0]);
+                    $this->images_tags->insert(array(
+                                                           'image_id' => $image_id,
+                                                           'tag_id'   => $tag_id,
+                                                           'value'    => $value[1]
+                                                      ));
+                }
+            }
+        }catch (Exception $e){
+            if($this->db->db_debug){
+                $this->db->trans_rollback();
+                echo $e->getMessage();
+            }
+        }
+        $this->db->trans_commit();
+        //Call view with $data
+        $this->_base_template('watcher', $data );
 	}
 	
 	function _base_template($template = null, $data = null)
