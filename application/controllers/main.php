@@ -35,49 +35,12 @@ class Main extends CI_Controller
         $this->_base_template('watcher', $data );
 	}
 	
-	function parser()
-	{
-        if($this->uri->total_segments() > 3 || $this->uri->total_segments() < 3){
-            $page= 0;
-        }else{
-            $page = ($this->uri->segment(3)) ? $this->uri->segment(3) : 0;
-        }
-        $this->grubber->init('wallbase');
-        $data = array('images_data' => $this->grubber->run($page));
-        try{
-            foreach($data['images_data'] as $image){
-                $this->db->trans_begin();
-                $image_id = $this->images->insert(array(
-                                                            'src_url'   => $image['src_url'],
-                                                            'thumb_url' => $image['thumb_url'],
-                                                       ));
-                foreach($image['tags'] as $value){
-                    //var_dump($value[0]);
-                    $tag_id = $this->tags->insertIfNotExists($value[0]);
-                    $this->images_tags->insert(array(
-                                                           'image_id' => $image_id,
-                                                           'tag_id'   => $tag_id,
-                                                           'value'    => $value[1]
-                                                      ));
-                }
-            }
-        }catch (Exception $e){
-            if($this->db->db_debug){
-                $this->db->trans_rollback();
-                echo $e->getMessage();
-            }
-        }
-        $this->db->trans_commit();
-        //Call view with $data
-        $this->_base_template('watcher', $data );
-	}
-	
 	function _base_template($template = null, $data = null)
 	{
 		$this->load->view('layout/_header');
         $this->load->view('layout/_top_nav');
-		if ($template) 
-		{ 
+		if ($template)
+		{
 			$this->load->view($template, $data );
 		}
 		$this->load->view('layout/_footer');

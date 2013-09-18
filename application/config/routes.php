@@ -43,8 +43,12 @@ $route['index/:num']         = "main/index";
 $route['/:num']              = "main/index";
 $route['404_override']       = '';
 
-$route['parser/:num']        = "main/parser";
+$route['parser/:num']        = "parser/index";
+
+$route['random/:num']        = "random/index";
 
 $route['image/:any']         = "image/get";
+
+$route['tag/:any']           = "tag/images";
 /* End of file routes.php */
 /* Location: ./application/config/routes.php */

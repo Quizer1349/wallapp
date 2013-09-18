@@ -30,7 +30,7 @@ class Images extends CI_Model {
         return $insert_id;
     }
 
-    /*Get all users+tweets from database*/
+
     public function get() {
         $this->db->select('*');
         $this->db->from($this->_table_name);
@@ -40,12 +40,32 @@ class Images extends CI_Model {
         return $data;
     }
 
-    /*Get by id*/
-    /*public function get_by_id($id) {
-            $this->db->where('id', $id);
-            $this->db->join('tweets', 'tweets.user_id = twitter_users.twitter_id','left');
-        $data = $this->db->get($this->_table_name)
-                     ->result_array();
+    public function insertIfNotExists($data) {
+        $insert_id = $this->getByUrl($data['src_url']);
+        if(count($insert_id) == 0){
+            $this->db->insert($this->_table_name, $data);
+            $insert_id = $this->db->insert_id();
+            return $insert_id;
+        }else{
+            return false;
+        }
+    }
+
+    public function getRand()
+    {
+        $this->db->select('*');
+        $this->db->from($this->_table_name);
+        $this->db->order_by('RAND()');
+        $this->db->limit(32);
+        $data = $this->db->get()->result_array();
         return $data;
-    }*/
+    }
+    public function getByUrl($url) {
+        $this->db->select('id');
+        $this->db->from($this->_table_name);
+        $this->db->where('src_url', $url);
+        $this->db->limit(1);
+        $data = $this->db->get()->result_array();
+        return $data;
+    }
 }

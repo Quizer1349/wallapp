@@ -52,7 +52,6 @@ class Tags extends CI_Model {
         $this->db->select('id');
         $this->db->from($this->_table_name);
         $this->db->where('tag', $tag);
-        $this->db->limit(1);
         $data = $this->db->get()->result_array();
         return $data;
     }

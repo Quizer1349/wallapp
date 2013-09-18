@@ -43,11 +43,22 @@ class Images_tags extends CI_Model {
     }
 
     /*Get by id*/
-    /*public function get_by_id($id) {
-            $this->db->where('id', $id);
-            $this->db->join('tweets', 'tweets.user_id = twitter_users.twitter_id','left');
+    public function getByImageId($id) {
+            $this->db->where('image_id', $id);
+            $this->db->join('tags', 'tags.id = images_tags.tag_id','left');
         $data = $this->db->get($this->_table_name)
                      ->result_array();
         return $data;
-    }*/
+    }
+
+    /*Get by id*/
+    public function getImagesByTag($tag) {
+        $this->db->where('tag', $tag);
+        $this->db->join('tags', 'tags.id = images_tags.tag_id','left');
+        $this->db->join('images', 'images.id = images_tags.image_id','left');
+        $this->db->order_by('value', 'DESC');
+        $data = $this->db->get($this->_table_name)
+            ->result_array();
+        return $data;
+    }
 }

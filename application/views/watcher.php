@@ -15,8 +15,9 @@
                             </button>
                             <ul class="dropdown-menu">
                                 <?php foreach($image['tags'] as $tag_data){
-                                    foreach($tag_data as $tag => $data)
-                                    echo ' <li class="label">' . $tag . ' : ' . $data . '</li><br>';
+                                    echo ' <a href="' . base_url() . 'tag/' . $tag_data['tag'] . '">   ';
+                                    echo ' <li class="label">' . $tag_data['tag'] . ' : ' . $tag_data['value'] . '</li><br>';
+                                    echo '</a>';
                                 } ?>
                             </ul>
                         </div>

@@ -52,7 +52,7 @@ class Grubber {
                 if($parsed_tags[$i] != '' && $parsed_tags[$i] != null){
                     $pars_item = explode('|', trim($parsed_tags[$i], '||'));
                     if(strlen($pars_item[0]) != 0){
-                        $tag_data[] = array($pars_item[0], $pars_item[1] );
+                        $tag_data[] = array('tag' => $pars_item[0], 'value' => $pars_item[1] );
                     }
                 }
             }
