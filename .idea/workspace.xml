@@ -1,7 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="9cc2ccf5-1558-42f9-b2ca-3aec652236dd" name="Default" comment="" />
+    <list default="true" id="9cc2ccf5-1558-42f9-b2ca-3aec652236dd" name="Default" comment="">
+      <change type="DELETED" beforePath="$PROJECT_DIR$/application/models/twitter_users.php" afterPath="" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+    </list>
     <ignored path="wallapp.iws" />
     <ignored path=".idea/workspace.xml" />
     <file path="/main.php" changelist="9cc2ccf5-1558-42f9-b2ca-3aec652236dd" time="1379431146012" ignored="false" />
@@ -12,7 +15,7 @@
     <file path="/a.dummy" changelist="9cc2ccf5-1558-42f9-b2ca-3aec652236dd" time="1379429952522" ignored="false" />
     <file path="/wallbase.php" changelist="9cc2ccf5-1558-42f9-b2ca-3aec652236dd" time="1378759827882" ignored="false" />
     <file path="/grubber.php" changelist="9cc2ccf5-1558-42f9-b2ca-3aec652236dd" time="1379432567056" ignored="false" />
-    <file path="/dummy.txt" changelist="9cc2ccf5-1558-42f9-b2ca-3aec652236dd" time="1379400903591" ignored="false" />
+    <file path="/dummy.txt" changelist="9cc2ccf5-1558-42f9-b2ca-3aec652236dd" time="1379432862919" ignored="false" />
     <file path="/image.php" changelist="9cc2ccf5-1558-42f9-b2ca-3aec652236dd" time="1379414822123" ignored="false" />
     <file path="/autoload.php" changelist="9cc2ccf5-1558-42f9-b2ca-3aec652236dd" time="1379406912678" ignored="false" />
     <file path="/parser.php" changelist="9cc2ccf5-1558-42f9-b2ca-3aec652236dd" time="1379424136413" ignored="false" />
@@ -42,7 +45,7 @@
       <file leaf-file-name="main.php" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/application/controllers/main.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="29" column="0" selection-start="679" selection-end="679" vertical-scroll-proportion="0.32163742">
+            <state line="29" column="0" selection-start="679" selection-end="679" vertical-scroll-proportion="-0.23391813">
               <folding />
             </state>
           </provider>
@@ -51,7 +54,7 @@
       <file leaf-file-name="grubber.php" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/application/libraries/grubber.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="89" column="13" selection-start="2880" selection-end="2880" vertical-scroll-proportion="-14.5">
+            <state line="89" column="13" selection-start="2880" selection-end="2880" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
@@ -80,7 +83,19 @@
       <command text="git status" />
       <command text="git commit -m  '1'" />
       <command text="git pull" />
+      <command text="git add ." />
+      <command text="git commit -m 'save parsed data into db'" />
+      <command text="git push" />
+      <command text="git push" />
+      <command text="git push" />
+      <command text="ls" />
+      <command text="git push" />
     </commandsHistory>
+  </component>
+  <component name="GitLogSettings">
+    <option name="myDateState">
+      <MyDateState />
+    </option>
   </component>
   <component name="IdeDocumentHistory">
     <option name="changedFiles">
@@ -116,7 +131,7 @@
     <option name="width" value="1362" />
     <option name="height" value="721" />
   </component>
-  <component name="ProjectLevelVcsManager" settingsEditedManually="false">
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true">
     <OptionsSetting value="true" id="Add" />
     <OptionsSetting value="true" id="Remove" />
     <OptionsSetting value="true" id="Checkout" />
@@ -286,10 +301,10 @@
   <component name="PropertiesComponent">
     <property name="options.splitter.main.proportions" value="0.3" />
     <property name="WebServerToolWindowFactoryState" value="true" />
-    <property name="options.lastSelected" value="web.server" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../multaply" />
-    <property name="options.searchVisible" value="true" />
+    <property name="options.lastSelected" value="project.propVCSSupport.Mappings" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="options.splitter.details.proportions" value="0.2" />
+    <property name="options.searchVisible" value="true" />
   </component>
   <component name="PublishConfig" serverName="wallapp" serverId="d5381b1e-c47b-445f-b4e9-624674cfe08e">
     <servers>
@@ -347,28 +362,28 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="-1" y="24" width="1362" height="721" extended-state="6" />
-    <editor active="true" />
+    <editor active="false" />
     <layout>
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.329806" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Remote Host" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.27175573" sideWeight="0.67019403" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.27633587" sideWeight="0.6719577" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.329806" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Documentation" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="FLOATING" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" x="100" y="152" width="1162" height="521" />
+      <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.329806" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
-      <window_info id="Command Line Tools Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3286219" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
+      <window_info id="Command Line Tools Console" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.32804233" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
     </layout>
   </component>
   <component name="VcsContentAnnotationSettings">
@@ -461,9 +476,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/system/core/Model.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="33" column="13" selection-start="800" selection-end="800" vertical-scroll-proportion="0.9649123">
-          <folding />
-        </state>
+        <state line="33" column="13" selection-start="800" selection-end="800" vertical-scroll-proportion="0.9649123" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/application/config/autoload.php">
@@ -480,56 +493,44 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/application/models/tags.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="34" column="0" selection-start="797" selection-end="797" vertical-scroll-proportion="-4.4166665">
-          <folding />
-        </state>
+        <state line="34" column="0" selection-start="797" selection-end="797" vertical-scroll-proportion="-4.4166665" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/system/database/drivers/pdo/pdo_result.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="97" column="8" selection-start="1976" selection-end="1976" vertical-scroll-proportion="-0.058282208">
-          <folding />
-        </state>
+        <state line="97" column="8" selection-start="1976" selection-end="1976" vertical-scroll-proportion="-0.058282208" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/system/database/DB.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="-3.883041">
-          <folding />
-        </state>
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="-3.883041" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/system/database/DB_utility.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="-11.251462">
-          <folding />
-        </state>
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="-11.251462" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/system/database/DB_active_rec.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="1341" column="31" selection-start="28326" selection-end="28334" vertical-scroll-proportion="0.72">
-          <folding />
-        </state>
+        <state line="1341" column="31" selection-start="28326" selection-end="28334" vertical-scroll-proportion="0.72" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/system/database/DB_result.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="-11.163743">
-          <folding />
-        </state>
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="-11.163743" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/application/libraries/grubber.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="89" column="13" selection-start="2880" selection-end="2880" vertical-scroll-proportion="-14.5">
+        <state line="89" column="13" selection-start="2880" selection-end="2880" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/application/controllers/main.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="29" column="0" selection-start="679" selection-end="679" vertical-scroll-proportion="0.32163742">
+        <state line="29" column="0" selection-start="679" selection-end="679" vertical-scroll-proportion="-0.23391813">
           <folding />
         </state>
       </provider>
