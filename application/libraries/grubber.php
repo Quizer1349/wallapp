@@ -26,9 +26,11 @@ class Grubber {
         $data_img = 'data-original';
         foreach($html->find('div.thumbnail') as $one){
             $thumb = $one->find('img' , 0);
+            $src_url = str_replace('thumb', 'wallpaper', $thumb->$data_img);
+            $src_url = str_replace('wallbase.cc//', 'wallbase.cc/', $src_url);
             $image_data[] = array(
                                   'thumb_url' => $thumb->$data_img,
-                                  'src_url'   => str_replace('thumb', 'wallpaper', $thumb->$data_img),
+                                  'src_url'   => $src_url,
                                   'tags'  => $this->_parseTags($one->$data_tags)
                                  );
         }
@@ -63,7 +65,7 @@ class Grubber {
     {
         $this->_curl->create($img_url);
         $this->_curl->option(CURLOPT_REFERER, 'http://wallbase.cc/');
-        $this->_curl->option(CURLOPT_FOLLOWLOCATION, 1);
+        //$this->_curl->option(CURLOPT_FOLLOWLOCATION, 1);
         $this->_curl->option(CURLOPT_RETURNTRANSFER, 1);
         return $this->_curl->execute();
     }

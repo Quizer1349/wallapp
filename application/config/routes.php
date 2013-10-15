@@ -49,6 +49,9 @@ $route['random/:num']        = "random/index";
 
 $route['image/:any']         = "image/get";
 
+$route['wallpaper/:any']     = "wallpaper/get";
+
 $route['tag/:any']           = "tag/images";
+
 /* End of file routes.php */
 /* Location: ./application/config/routes.php */
