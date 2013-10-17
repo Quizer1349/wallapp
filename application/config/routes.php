@@ -53,5 +53,7 @@ $route['wallpaper/:any']     = "wallpaper/get";
 
 $route['tag/:any']           = "tag/images";
 
+$route['search/index']           = "search/index";
+
 /* End of file routes.php */
 /* Location: ./application/config/routes.php */

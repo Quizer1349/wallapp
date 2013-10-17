@@ -22,17 +22,4 @@ class Image extends CI_Controller
         header("Content-type: image/jpeg");
         echo $image; die;
     }
-
-    function wallpaper()
-    {
-        echo 'sddfsdfsdfsdfsdf';
-        $this->get('id');
-        var_dump($this->get('id')); die;
-        $image_url = str_replace('__', '/', $this->uri->segment(3));
-        $grubber = new Grubber();
-        $grubber->init('wallbase');
-        $image = $grubber->getImage($image_url);
-        header("Content-type: image/jpeg");
-        echo $image; die;
-    }
 }

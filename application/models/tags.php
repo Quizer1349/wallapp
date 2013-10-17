@@ -55,4 +55,52 @@ class Tags extends CI_Model {
         $data = $this->db->get()->result_array();
         return $data;
     }
+
+    public function search($data) {
+        $result = array();
+        if(!is_string($data)){
+            throw new ErrorException('Search query should be a string');
+        }
+        $data = $this->_cleanPostData($data);
+        $data_full = $data;
+        $this->db->select('*');
+        $this->db->from($this->_table_name);
+        $this->db->like('tag', $data);
+        if(strpos($data, ' ')){
+            $data = explode(' ', $data);
+            foreach($data as $value){
+                $this->db->or_like('tag', trim($value));
+            }
+        }elseif(strpos($data, ',')){
+            $data = explode(',', $data);
+            foreach($data as $value){
+                $this->db->or_like('tag', trim($value));
+            }
+        }elseif(strpos($data, '.')){
+            $data = explode('.', $data);
+            foreach($data as $value){
+                $this->db->or_like('tag', trim($value));
+            }
+        }
+        $result = $this->db->get()->result_array();
+        if($result != null){
+            foreach($result as $key => $value){
+                $rel_val = (levenshtein($data_full, $value['tag']));
+                $result_val[$rel_val] = $value;
+            }
+            ksort($result_val);
+            return $result_val;
+        }else{
+            return false;
+        }
+    }
+
+    private function _cleanPostData($data)
+    {
+        $data = strip_tags($data);
+        $data = trim(strtolower($data));
+        $data = preg_replace('~[^a-z0-9 \x80-\xFF]~i', "",$data);
+        return $data;
+    }
+
 }

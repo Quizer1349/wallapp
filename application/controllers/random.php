@@ -30,8 +30,8 @@ class Random extends CI_Controller
         if(count($images) != 0){
             foreach($images as $key => $img){
                $tags = $this->images_tags->getByImageId($img['id']);
-                $img['tags'] = $tags;
-                $data[] = $img;
+               $img['tags'] = $tags;
+               $data[] = $img;
             }
         }else{
             $data = 'Empty!';
