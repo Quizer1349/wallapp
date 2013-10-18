@@ -62,34 +62,32 @@ class Tags extends CI_Model {
             throw new ErrorException('Search query should be a string');
         }
         $data = $this->_cleanPostData($data);
-        $data_full = $data;
-        $this->db->select('*');
-        $this->db->from($this->_table_name);
-        $this->db->like('tag', $data);
-        if(strpos($data, ' ')){
-            $data = explode(' ', $data);
-            foreach($data as $value){
-                $this->db->or_like('tag', trim($value));
+        $where = 'MATCH (tag) AGAINST (\'>>"' . $data . '"';
+        $data = $this->_sliceSearchData($data);
+        if(count($data) > 0){
+            $where .= ' >(';
+            for ($i=0; $i < count($data); $i++){
+                $where .= ' +' .$data[$i] . '* ';
             }
-        }elseif(strpos($data, ',')){
-            $data = explode(',', $data);
-            foreach($data as $value){
-                $this->db->or_like('tag', trim($value));
+            $where .= ') <(';
+            for ($i=0; $i < count($data); $i++){
+                if($i == 1){
+                    $where .= '> ' . $data[$i] . '* ';
+                }else{
+                    $where .= $data[$i] . '* ';
+                }
             }
-        }elseif(strpos($data, '.')){
-            $data = explode('.', $data);
-            foreach($data as $value){
-                $this->db->or_like('tag', trim($value));
-            }
+            $where .= ')\'';
         }
+        $where .= ' IN BOOLEAN MODE)';
+        $this->db->select("* , $where  as rel", false);
+        $this->db->from($this->_table_name);
+        $this->db->where($where, NULL, FALSE);
+        $this->db->order_by('rel', 'DESC');
         $result = $this->db->get()->result_array();
+        //echo $this->db->last_query(); die;
         if($result != null){
-            foreach($result as $key => $value){
-                $rel_val = (levenshtein($data_full, $value['tag']));
-                $result_val[$rel_val] = $value;
-            }
-            ksort($result_val);
-            return $result_val;
+            return $result;
         }else{
             return false;
         }
@@ -101,6 +99,29 @@ class Tags extends CI_Model {
         $data = trim(strtolower($data));
         $data = preg_replace('~[^a-z0-9 \x80-\xFF]~i', "",$data);
         return $data;
+    }
+
+    private function _sliceSearchData($data)
+    {
+        if(strpos($data, ' ')){
+            $data = explode(' ', $data);
+            foreach($data as $value){
+                $data_res[] = trim($value);
+            }
+        }elseif(strpos($data, ',')){
+            $data = explode(',', $data);
+            foreach($data as $value){
+                $data_res[] = trim($value);
+            }
+        }elseif(strpos($data, '.')){
+            $data = explode('.', $data);
+            foreach($data as $value){
+                $data_res[] = trim($value);
+            }
+        }else{
+            $data_res = array($data);
+        }
+        return $data_res;
     }
 
 }

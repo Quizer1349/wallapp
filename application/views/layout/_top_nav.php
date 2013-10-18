@@ -8,7 +8,7 @@
             <li><a href="/tag">Taglist</a></li>
             <li><a href="/parser">Grub</a></li>
         </ul>
-        <form action="/search/index" method="post" class="form-search" style="margin: 5px 0 0 0; text-align: right; ">
+        <form action="/search/index" method="post" enctype="application/x-www-form-urlencoded" class="form-search" style="margin: 5px 0 0 0; text-align: right; ">
             <input name="search_data" type="text" class="input-medium search-query">
             <button name="search" type="submit" class="btn search-query" style="margin:0 "><i class="icon-search"></i></button>
         </form>

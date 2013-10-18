@@ -1,4 +1,4 @@
-<?php if (!defined('BASEPATH')) exit('No direct script access allowed');
+<?php
 
 class Search extends CI_Controller
 {
@@ -31,7 +31,7 @@ class Search extends CI_Controller
             }
             $data_img = array('images_data' => $data_img);
         }else{
-            $data_img = array('images_data' => 'No results!');
+            $data_img = array('images_data' => null);
         }
         $this->_base_template('watcher', $data_img );
     }
