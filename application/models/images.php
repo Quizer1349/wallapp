@@ -26,28 +26,70 @@ class Images extends CI_Model {
     /*Insert data */
     public function insert($data) {
         $this->db->insert($this->_table_name, $data);
-
         $insert_id = $this->db->insert_id();
-
         return $insert_id;
     }
 
-    /*Get all users+tweets from database*/
-    public function get() {
+    public function countImgs() {
+        return $this->db->count_all($this->_table_name);
+    }
+
+    public function get($limit, $order) {
         $this->db->select('*');
         $this->db->from($this->_table_name);
-        $this->db->join('tweets', 'tweets.user_id = twitter_users.twitter_id','left');
+        if($limit != 0){
+            $this->db->limit($limit);
+        }
+        $this->db->order_by($this->_table_name . '.id', $order);
         $data = $this->db->get()
             ->result_array();
         return $data;
     }
 
-    /*Get by id*/
-    /*public function get_by_id($id) {
-            $this->db->where('id', $id);
-            $this->db->join('tweets', 'tweets.user_id = twitter_users.twitter_id','left');
-        $data = $this->db->get($this->_table_name)
-                     ->result_array();
+    public function getWithLimit($limit) {
+        $this->db->select('*');
+        $this->db->from($this->_table_name);
+        $this->db->limit($limit);
+        $data = $this->db->get()
+            ->result_array();
         return $data;
-    }*/
+    }
+
+    public function insertIfNotExists($data) {
+        $insert_id = $this->getByUrl($data['src_url']);
+        if(count($insert_id) == 0){
+            $this->db->insert($this->_table_name, $data);
+            $insert_id = $this->db->insert_id();
+            return $insert_id;
+        }else{
+            return false;
+        }
+    }
+
+    public function getRand($limit = 32)
+    {
+        $this->db->select('*');
+        $this->db->from($this->_table_name);
+        $this->db->order_by('RAND()');
+        $this->db->limit($limit);
+        $data = $this->db->get()->result_array();
+        return $data;
+    }
+
+    public function getByUrl($url) {
+        $this->db->select('id');
+        $this->db->from($this->_table_name);
+        $this->db->where('src_url', $url);
+        $this->db->limit(1);
+        $data = $this->db->get()->result_array();
+        return $data;
+    }
+
+    public function getById($id) {
+        $this->db->select('*');
+        $this->db->from($this->_table_name);
+        $this->db->where($this->_table_name . '.id', $id);
+        $data = $this->db->get()->result_array();
+        return $data;
+    }
 }

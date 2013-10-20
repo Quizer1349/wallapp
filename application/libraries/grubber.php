@@ -1,6 +1,7 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed');
 include_once('simple_html_dom.php');
 include_once('Connection.php');
+include_once('Curl.php');
 class Grubber {
     public $linksRegex = '';
     public $imageRegex = '';
@@ -8,9 +9,11 @@ class Grubber {
     public $name = 'defaultscraper';
     private $config = array();
     private $source_name = '';
+    private $_curl = null;
 
     public function init($source_name)
     {
+        $this->_curl = new Curl();
         $this->source_name = $source_name;
         $CI =& get_instance();
         $CI->config->load('grubber');
@@ -23,9 +26,11 @@ class Grubber {
         $data_img = 'data-original';
         foreach($html->find('div.thumbnail') as $one){
             $thumb = $one->find('img' , 0);
+            $src_url = str_replace('thumb', 'wallpaper', $thumb->$data_img);
+            $src_url = str_replace('wallbase.cc//', 'wallbase.cc/', $src_url);
             $image_data[] = array(
                                   'thumb_url' => $thumb->$data_img,
-                                  'src_url'   => str_replace('thumb', 'wallpaper', $thumb->$data_img),
+                                  'src_url'   => $src_url,
                                   'tags'  => $this->_parseTags($one->$data_tags)
                                  );
         }
@@ -49,11 +54,20 @@ class Grubber {
                 if($parsed_tags[$i] != '' && $parsed_tags[$i] != null){
                     $pars_item = explode('|', trim($parsed_tags[$i], '||'));
                     if(strlen($pars_item[0]) != 0){
-                        $tag_data[][$pars_item[0]] = $pars_item[1];
+                        $tag_data[] = array('tag' => $pars_item[0], 'value' => $pars_item[1] );
                     }
                 }
             }
         return $tag_data;
+    }
+
+    public function getImage($img_url)
+    {
+        $this->_curl->create($img_url);
+        $this->_curl->option(CURLOPT_REFERER, 'http://wallbase.cc/');
+        //$this->_curl->option(CURLOPT_FOLLOWLOCATION, 1);
+        $this->_curl->option(CURLOPT_RETURNTRANSFER, 1);
+        return $this->_curl->execute();
     }
 
     public function download($image)
@@ -73,7 +87,7 @@ class Grubber {
 
     public function run($pagination)
     {
-        if($pagination != 0){
+        if($pagination == 0){
             $data = $this->parse($this->getHTMLFromUrl($this->config['url']));
         }else{
             $data = $this->parse($this->getHTMLFromUrl($this->config['url'] . $pagination));

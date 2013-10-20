@@ -5,39 +5,42 @@ class Main extends CI_Controller
 	function __construct()
 	{
 		parent::__construct();
-//		$this->load->model('twitter_users');
-//		$this->load->model('tweets');
+
+        //Loading models
+		$this->load->model('images');
+		$this->load->model('images_tags');
+		$this->load->model('tags');
+
+        //Loading helpers
 		$this->load->helper('url');
-//		// Loading TwitterOauth library. Delete this line if you choose autoload method.
+
+    	//Parser
         $this->load->library('grubber');
-//		/**
-//		* Get ouath config from config/twitterapp.php
-//		*/
-//		$this->config->load('twitterapp');
+
 	}
 
 	function index()
-
-	{
+    {
+        //Check is there correct params in URI
+        if($this->uri->total_segments() > 2 || $this->uri->total_segments() < 2){
+            $page= 0;
+        }else{
+            $page = ($this->uri->segment(2)) ? $this->uri->segment(2) : 0;
+        }
+        //Init grubber with WallBase config
         $this->grubber->init('wallbase');
-        $data = array('images_data' => $this->grubber->run(0));
+        //Grub images with data
+        $data = array('images_data' => $this->grubber->run($page));
         //Call view with $data
         $this->_base_template('watcher', $data );
-	}
-	
-	function saver()
-	{
-		$data['count_rows'] = $this->tweets->count_rows();
-		$data['tweets'] = $this->twitter_users->get();
-		$this->_base_template('saver', $data );
 	}
 	
 	function _base_template($template = null, $data = null)
 	{
 		$this->load->view('layout/_header');
         $this->load->view('layout/_top_nav');
-		if ($template) 
-		{ 
+		if ($template)
+		{
 			$this->load->view($template, $data );
 		}
 		$this->load->view('layout/_footer');

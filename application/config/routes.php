@@ -39,9 +39,21 @@
 */
 
 $route['default_controller'] = "main";
-$route['index']              = "main/index";
+$route['index/:num']         = "main/index";
+$route['/:num']              = "main/index";
 $route['404_override']       = '';
 
+$route['parser/:num']        = "parser/index";
+
+$route['random/:num']        = "random/index";
+
+$route['image/:any']         = "image/get";
+
+$route['wallpaper/:any']     = "wallpaper/get";
+
+$route['tag/:any']           = "tag/images";
+
+$route['search/index']           = "search/index";
 
 /* End of file routes.php */
 /* Location: ./application/config/routes.php */
